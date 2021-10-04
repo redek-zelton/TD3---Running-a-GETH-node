@@ -28,11 +28,13 @@ $ exit
 
 
 ## Adapt UFW Setting
-Permet d'ouvrir les ports, autorisé les trafics: SSH(22) ; 8545(HTTP based JSON RPC API) 8546(WebSocket based JSON RPC API) ; 30303(The P2P protocol running the network) ; 30304(The P2P protocol's new peer discovery overlay) ;  ... vont être ajouter au fur et à mesure
+Permet d'ouvrir les ports, autorisé les trafics: SSH(22) ; 8545(HTTP based JSON RPC API) 8546(WebSocket based JSON RPC API) ; 30303(The P2P protocol running the network) ; 30304(The P2P protocol's new peer discovery overlay) ; http ; https  ... vont être ajouter au fur et à mesure
 
 ```bash
 #Installation
 $sudo apt install ufw
+$sudo ufw default deny incoming
+$sudo ufw default allow outgoing
 #Mode admin
 $sudo su
 #Acceptation des ports
@@ -66,6 +68,7 @@ $geth –help (use to check installation and see all command)
 
 ## Running Geth on the rinkeby network
 Check How to Run => [Running Geth](https://ethereum.org/en/developers/tutorials/run-light-node-geth/)
+Charging all block in the Network, it take time to get the blockchain
 
 ```bash
 #Network: mainnet, ropsten...
@@ -74,8 +77,108 @@ $geth --#Network --syncmode #Speed
 ```
 
 
+
 ## Turning Geth into a service
+Create a service file to run the network
+See the Command line: [link](https://geth.ethereum.org/docs/interface/command-line-options)
+Changing rpcapi by http.api, because it is depreceted and will be removed on June 2021
+Write in Geth.service:
+```bash
+$sudo nano /etc/systemd/system/geth.service
+```
+```
+#[Geth.service]
+[Unit]
+Description=Geth Service
+
+[Service]
+User=administrateur1
+Type=simple
+Restart=always
+ExecStart=/bin/bash /home/administrateur1/run/geth.sh
+
+[Install]
+WantedBy=default.target
+```
+
+Create the Bash execute file in another place
+```bash
+$ nano ~/run/geth.sh
+```
+This file includes: Network node, HTTP API port
+Use datadir to put correctly the geth.ipc 
+```
+#[geth]
+#!/bin/bash
+geth --rinkeby --syncmode "fast" --http --http.addr "127.0.0.1" --http.port 8545 --http.api db,eth,net,web3,personal --datadir /home/administrateur1/.ethereum/rinkeby
+```
+
+Run service command: enable/disenable/start/stop/daemon-restart/status
+Then follow these commands to run the service:
+```bash
+#(activate)
+$Sudo systemctl enable geth.service
+#(lauch)
+$Sudo systemctl start geth.service
+(check)
+$Sudo systemctl  status geth.service
+```
+
+
+
 ## Open the RPC API to interact with your node
+After Running Corretly the service
+Open the Geth Console with:
+```bash
+$geth --rinkeby attach
+```
+
+
+
 ## Connect to the Geth console and extract last block number
+Watch the last block with this command:
+```geth
+$eth.getBlock('latest').number
+>9407806
+```
+If the value is 0, it's just the Virtual Machine is charging blocks then use:
+```geth
+#To watch the current charged block
+$eth.syncing
+#if false => it's updated
+```
+
+
+
 ## Connect to the Geth console and show events data from a specific transaction
+Watch a specific transaction with this command:
+```geth
+# Tx is the transaction
+$eth.getTransaction("#Tx")
+```
+Create a quick Smart Contract and Interact with this: [Remix](https://remix.ethereum.org)
+I create two transactions:
+(With Event): [0xd3b7c2ebb0cb6d9b379399995ca8e5fdeb44dd1cb13260cf5e28da8d832169d9](https://rinkeby.etherscan.io/tx/0xd3b7c2ebb0cb6d9b379399995ca8e5fdeb44dd1cb13260cf5e28da8d832169d9)
+(Without Event): [0x19c3eda25db96e20f25345ab845c84bdcffc5860efa9bf02a16a85eb16e61d8d](https://rinkeby.etherscan.io/tx/0x19c3eda25db96e20f25345ab845c84bdcffc5860efa9bf02a16a85eb16e61d8d)
+
+There is not a difference in the Geth console. But in the exploreur, there is a log with data come from event function.
+
+
 ## Configure truffle to deploy a smart contract through your node
+
+
+
+## Conclusion TD
+
+
+
+## Documentation
+
+
+
+
+
+
+
+
+

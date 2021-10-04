@@ -3,6 +3,8 @@
 ## Instruction
 Ce TD a pour but d'accéder à un réseau Ethereum (mainnet, ropsten, rinkeby, Goeland). En accédant dans un réseau, on peut avoir: la liste des blocks, les informations d'une transaction, déployer un Smart Contract, intéragir avec un Smart Contract.
 
+
+
 ## Adapt SSH Setting
 Permet de donner accès à certaines personnes dans le VM
 
@@ -15,6 +17,8 @@ Permet de donner accès à certaines personnes dans le VM
 5) save
 6) Open Session
 ```
+![Putty1](https://github.com/redek-zelton/TD3---Running-a-GETH-node/blob/main/image/Putty1.JPG)
+![Putty2](https://github.com/redek-zelton/TD3---Running-a-GETH-node/blob/main/image/Putty2.JPG)
 
 ### On the Virtual Machine:
 ```bash
@@ -47,6 +51,7 @@ $ufw status
 #Quitter
 $exit
 ```
+![UFW](https://github.com/redek-zelton/TD3---Running-a-GETH-node/blob/main/image/UFW.JPG)
 
 
 
@@ -65,6 +70,7 @@ $sudo apt-get install ethereum
 #Check installation
 $geth –help (use to check installation and see all command)
 ```
+![Geth](https://github.com/redek-zelton/TD3---Running-a-GETH-node/blob/main/image/Geth.JPG)
 
 ## Running Geth on the rinkeby network
 Check How to Run => [Running Geth](https://ethereum.org/en/developers/tutorials/run-light-node-geth/)
@@ -100,6 +106,7 @@ ExecStart=/bin/bash /home/administrateur1/run/geth.sh
 [Install]
 WantedBy=default.target
 ```
+![Geth_service](https://github.com/redek-zelton/TD3---Running-a-GETH-node/blob/main/image/Geth_service.JPG)
 
 Create the Bash execute file in another place
 ```bash
@@ -123,7 +130,7 @@ $Sudo systemctl start geth.service
 (check)
 $Sudo systemctl  status geth.service
 ```
-
+![Service Status](https://github.com/redek-zelton/TD3---Running-a-GETH-node/blob/main/image/Service%20Status.JPG)
 
 
 ## Open the RPC API to interact with your node
@@ -147,7 +154,7 @@ If the value is 0, it's just the Virtual Machine is charging blocks then use:
 $eth.syncing
 #if false => it's updated
 ```
-
+![Geth_Block](https://github.com/redek-zelton/TD3---Running-a-GETH-node/blob/main/image/Geth_Block.JPG)
 
 
 ## Connect to the Geth console and show events data from a specific transaction
@@ -156,10 +163,12 @@ Watch a specific transaction with this command:
 # Tx is the transaction
 $eth.getTransaction("#Tx")
 ```
+![Geth_Transaction](https://github.com/redek-zelton/TD3---Running-a-GETH-node/blob/main/image/Geth_Transaction.JPG)
+
 Create a quick Smart Contract and Interact with this: [Remix](https://remix.ethereum.org)
 I create two transactions:
-(With Event): [0xd3b7c2ebb0cb6d9b379399995ca8e5fdeb44dd1cb13260cf5e28da8d832169d9](https://rinkeby.etherscan.io/tx/0xd3b7c2ebb0cb6d9b379399995ca8e5fdeb44dd1cb13260cf5e28da8d832169d9)
-(Without Event): [0x19c3eda25db96e20f25345ab845c84bdcffc5860efa9bf02a16a85eb16e61d8d](https://rinkeby.etherscan.io/tx/0x19c3eda25db96e20f25345ab845c84bdcffc5860efa9bf02a16a85eb16e61d8d)
+* (With Event): [0xd3b7c2ebb0cb6d9b379399995ca8e5fdeb44dd1cb13260cf5e28da8d832169d9](https://rinkeby.etherscan.io/tx/0xd3b7c2ebb0cb6d9b379399995ca8e5fdeb44dd1cb13260cf5e28da8d832169d9)
+* (Without Event): [0x19c3eda25db96e20f25345ab845c84bdcffc5860efa9bf02a16a85eb16e61d8d](https://rinkeby.etherscan.io/tx/0x19c3eda25db96e20f25345ab845c84bdcffc5860efa9bf02a16a85eb16e61d8d)
 
 There is not a difference in the Geth console. But in the exploreur, there is a log with data come from event function.
 
@@ -173,7 +182,7 @@ There is not a difference in the Geth console. But in the exploreur, there is a 
 
 
 ## Documentation
-
+* [Go Ethereum](https://geth.ethereum.org/)
 
 
 

@@ -177,10 +177,32 @@ There is not a difference in the Geth console. But in the exploreur, there is a 
 
 ## Configure truffle to deploy a smart contract through your node
 
+Smart Contract addresse [0x2f684E4024218627e62f8b14819880B7e1aB7825](https://rinkeby.etherscan.io/address/0x2f684e4024218627e62f8b14819880b7e1ab7825)
+
+* 1er Etape
+Créer un tunnel SSH Putty et le serveur:
+
+![tunnel](https://github.com/redek-zelton/TD3---Running-a-GETH-node/blob/main/image/Tunnel.JPG)
+
+* 2eme Etape
+
+Créer un Smart Contract et le lancé:
+(Echec)
+
+![Echec](https://github.com/redek-zelton/TD3---Running-a-GETH-node/blob/main/image/Echec.JPG)
+
+(Sans Echec) laisser Putty allumé
+
+![Rinkeby](https://github.com/redek-zelton/TD3---Running-a-GETH-node/blob/main/image/Rinkeby.JPG)
+
+* 3eme Etape
+Vérification du fork sur le réseau Rinkeby
+
+![fork](https://github.com/redek-zelton/TD3---Running-a-GETH-node/blob/main/image/fork.JPG)
 
 
 ## Conclusion TD
-
+On a crée un noeud local sur Rinkeby et on a crée un smart contract sur ce noeud local. On a donc forké le réseau.
 
 
 ## Documentation
